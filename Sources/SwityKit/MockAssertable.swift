@@ -5,6 +5,7 @@
 //  Created by Aytuğ Sevgi on 13.09.2022.
 //
 
+#if canImport(XCTest)
 import XCTest
 
 fileprivate enum AssertionError {
@@ -103,3 +104,4 @@ extension MockAssertable {
         invokedList.removeAll()
     }
 }
+#endif
