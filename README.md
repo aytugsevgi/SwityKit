@@ -55,3 +55,40 @@ enum MockHomeViewControllerElements: MockEquatable {
 }
 ```
 ### Test
+
+```swift
+final class HomeViewPresenterTests: XCTestCase, BaseTestCaseInterface {
+    var mocks: [MockAssertable] { [view, delegate] }
+    
+    var view: MockHomeViewController!
+    var delegate: MockHomeDelegate!
+    var presenter: HomeViewPresenter!
+    
+    override func setUp() {
+        super.setUp()
+        view = .init()
+        delegate = .init()
+        presenter = .init(view: view)
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        view.assertions("view")
+        delegate.assertions("delegate")
+        
+        view = nil
+        delegate = nil
+        presenter = nil
+    }
+    
+    func test_viewDidLoad_InvokesRequiredMethods() {
+       invokedNothing()
+       
+       presenter.viewDidLoad()
+       
+       view.assertInvokes([.preferredTabBarVisibility,
+                           .scroll(to: .init(item: 0, section: 1))])
+       invokedNothing(excepts: [view])
+    }
+}
+```
