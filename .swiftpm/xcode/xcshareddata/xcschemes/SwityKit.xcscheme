@@ -66,8 +66,8 @@
       allowLocationSimulation = "YES">
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&quot;FRAMEWORK_SEARCH_PATHS&quot;: [&quot;$(PLATFORM_DIR)/Developer/Library/Frameworks&quot;,                                    &quot;$(DEVELOPER_FRAMEWORKS_DIR)&quot;],         &quot;OTHER_LDFLAGS&quot;: [&quot;-weak_framework&quot;,                           &quot;XCTest&quot;,                           &quot;-weak-lswiftXCTest&quot;]"
-            isEnabled = "YES">
+            argument = ""
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>
