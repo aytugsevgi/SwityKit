@@ -96,3 +96,6 @@ final class HomeViewPresenterTests: XCTestCase, BaseTestCaseInterface {
     }
 }
 ```
+### Debug Log (Generation of assertions)
+
+<img width="590" alt="Screen Shot 2022-09-16 at 00 40 25" src="https://user-images.githubusercontent.com/33103753/190513945-42c37b73-84e0-4aba-ba03-680370f6fc92.png">
