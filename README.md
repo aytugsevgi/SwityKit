@@ -2,7 +2,7 @@
 
 SwityKit is an infrastructure that makes easy unit test writing and aims to increase coverage.
 
-Used with [SwityTestGenerator](https://github.com/aytugsevgi/SwityTestGenerator) This xcode source editor extension helps to mock generation.
+Used with [SwityTestGenerator](https://github.com/aytugsevgi/SwityTestGenerator). This xcode source editor extension helps to mock generation.
 
 ## Benefits
 
