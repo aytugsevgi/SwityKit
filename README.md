@@ -27,6 +27,10 @@ dependencies: [
     .package(url: "https://github.com/aytugsevgi/SwityKit", from: "1.0.2")
 ]
 ```
+You need to add to `Build Phases -> Link Binary With Libraries` for test targets. Also remove from main target.
+
+<img width="742" alt="Screen Shot 2022-09-16 at 14 27 54" src="https://user-images.githubusercontent.com/33103753/190629320-8c54f598-5e2f-4e08-8ba0-d715ba70fc34.png">
+
 ## Example
 
 ### Mock
