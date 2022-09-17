@@ -24,7 +24,7 @@ To integrate SwityKit into your Xcode project using Swift Package Manager, add i
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/aytugsevgi/SwityKit", from: "1.0.2")
+    .package(url: "https://github.com/aytugsevgi/SwityKit", from: "1.0.5")
 ]
 ```
 You need to add to `Build Phases -> Link Binary With Libraries` for test targets. Also remove from main target.
