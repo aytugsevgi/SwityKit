@@ -103,3 +103,64 @@ final class HomeViewPresenterTests: XCTestCase, BaseTestCaseInterface {
 ### Debug Log (Generation of assertions)
 
 <img width="590" alt="Screen Shot 2022-09-16 at 00 40 25" src="https://user-images.githubusercontent.com/33103753/190513945-42c37b73-84e0-4aba-ba03-680370f6fc92.png">
+
+- Manipulating test generation. If you want to change the output of a type, you can write extension with conform `CustomStringConvertable`.
+```swift
+extension User: CustomStringConvertable {
+    public var description: String {
+        ".init(name: \"\(self.name)\", age: \"\(self.age)\")"
+    }
+}
+```
+- If that type already conforms to `CustomStringConvertable`, you just need to override it.
+```swift
+extension NSAttributedString {
+    public override var description: String {
+        ".init(string: \"\(self.string)\")"
+    }
+}
+```
+
+## Deep Dive
+
+### MockAssertable
+
+This protocol must conform to mock classes. With this protocol, the mock class has an array called `invokedList`. The element of this array is the typealias that is expected to be defined with `MockIdentifier`.
+```swift
+final class MockHomeViewController: HomeViewControllerInterface, MockAssertable {
+    typealias MockIdentifier = MockHomeViewControllerElements
+    var invokedList: [MockHomeViewControllerElements] = []
+    .
+    .
+    .
+```
+`MockIdentifier` type must be enum with conformed `MockEquatable`. Like `MockHomeViewControllerElements` example above.
+```swift
+enum MockHomeViewControllerElements: MockEquatable {
+    ...
+}
+```
+`MockAssertable` also has helpful public APIs.
+- `assertInvokes()`: Tests that nothing was invoked from mock.
+- `assertInvokes(_ givenInvokes: [MockIdentifier])`: Tests whether the elements in the array have been invoked. If it is missing or 
+extra, it will give an error. It also warns you if the array is in the wrong order.
+- `assertions(name: String)`: Generate assertions to debug log according to `invokedList` array. If you call on `override func tearDown()` it's generate correctly after run each test func.
+- `tearDown()`: Deletes all elements of the invokedList array. It continues as nothing was invoked.
+
+### MockEquatable
+
+`MockEquatable` allows us to assert. It allows to get the String describing of the enum case in which it is conformed. Then it looks at the equality of these 2 strings when doing the comparison.
+
+### BaseTestCaseInterface
+
+This protocol must conform to test classes. Requests mocks from test class. Like,
+```swift
+final class HomeViewPresenterTests: XCTestCase, BaseTestCaseInterface {
+    var mocks: [MockAssertable] { [view, delegate] }
+    .
+    .
+    .
+```
+APIs it provides;
+- `tearDownMocks()`: Empties the invokedList array of all mocks. It continues as if nothing was invoked.
+- `invokedNothing(excepts: [BaseMockAssertable] = .empty)`: Shortcut assertion. Tests that the given in the test class's mocks array is not invoked at all. Does not check mocks given to `excepts`.
